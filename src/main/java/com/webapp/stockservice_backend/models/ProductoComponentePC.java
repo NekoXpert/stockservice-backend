@@ -3,7 +3,7 @@ package com.webapp.stockservice_backend.models;
 import jakarta.persistence.*;
 
 @Entity
-@DiscriminatorValue("Component")
+@DiscriminatorValue("ComponentePC")
 public class ProductoComponentePC extends Producto {
 
     private String tipoComponente;
@@ -28,6 +28,6 @@ public class ProductoComponentePC extends Producto {
 
     @Override
     public String getDescripcion() {
-        return "Componente PC: " + this.getNombre() + " - " + this.tipoComponente + " " + this.especificaciones;
+        return "Componente de PC: " + this.getNombre() + " - " + this.tipoComponente + " " + this.especificaciones;
     }
 }

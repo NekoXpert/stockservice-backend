@@ -20,7 +20,7 @@ public class SolicitudServicioController {
     }
 
     @PutMapping("/asignar-tecnico/{solicitudId}/{tecnicoId}")
-    public SolicitudServicio asignarTecnico(@PathVariable Long solicitudId, @PathVariable Long tecnicoId)
+    public SolicitudServicio asignarTecnico(@PathVariable Long solicitudId, @PathVariable int tecnicoId)
             throws Exception {
         return solicitudServicioService.asignarTecnico(solicitudId, tecnicoId);
     }
@@ -30,14 +30,14 @@ public class SolicitudServicioController {
         return solicitudServicioService.obtenerSolicitudes();
     }
 
-    @GetMapping("/filtrar-estado")
-    public List<SolicitudServicio> filtrarSolicitudesPorEstado(@RequestParam String estado) {
-        return solicitudServicioService.filtrarSolicitudesPorEstado(estado);
-    }
-
     @GetMapping("/filtrar-cliente")
     public List<SolicitudServicio> filtrarSolicitudesPorCliente(@RequestParam String clienteNombre) {
         return solicitudServicioService.filtrarSolicitudesPorCliente(clienteNombre);
+    }
+
+    @GetMapping("/filtrar-tecnico")
+    public List<SolicitudServicio> filtrarSolicitudesPorTecnico(@RequestParam String tecnicoAsignado) {
+        return solicitudServicioService.filtrarSolicitudesPorTecnico(tecnicoAsignado);
     }
 
     @PutMapping("/actualizar-estado/{solicitudId}")

@@ -2,32 +2,34 @@ package com.webapp.stockservice_backend.models;
 
 import jakarta.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class SolicitudServicio {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String clienteNombre;
-    private String clienteContacto;
+    private String clienteCorreo;
+    private String clienteTelefono;
     private String descripcion;
     private String estado;
+    private String tecnicoAsignado;
     private Date fechaCreacion;
     private Date fechaActualizacion;
 
-    @ManyToOne
-    @JoinColumn(name = "tecnico_id")
-    private Tecnico tecnicoAsignado;
+    @PrePersist
+    protected void onCreate() {
+        fechaCreacion = new Date();
+        fechaActualizacion = new Date();
+        estado = "Pendiente";
+    }
 
-    @ManyToMany
-    @JoinTable(name = "solicitud_productos", joinColumns = @JoinColumn(name = "solicitud_id"), inverseJoinColumns = @JoinColumn(name = "producto_id"))
-    private List<Producto> productos;
+    @PreUpdate
+    protected void onUpdate() {
+        fechaActualizacion = new Date();
+    }
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -44,12 +46,20 @@ public class SolicitudServicio {
         this.clienteNombre = clienteNombre;
     }
 
-    public String getClienteContacto() {
-        return clienteContacto;
+    public String getClienteCorreo() {
+        return clienteCorreo;
     }
 
-    public void setClienteContacto(String clienteContacto) {
-        this.clienteContacto = clienteContacto;
+    public void setClienteCorreo(String clienteCorreo) {
+        this.clienteCorreo = clienteCorreo;
+    }
+
+    public String getClienteTelefono() {
+        return clienteTelefono;
+    }
+
+    public void setClienteTelefono(String clienteTelefono) {
+        this.clienteTelefono = clienteTelefono;
     }
 
     public String getDescripcion() {
@@ -68,6 +78,14 @@ public class SolicitudServicio {
         this.estado = estado;
     }
 
+    public String getTecnicoAsignado() {
+        return tecnicoAsignado;
+    }
+
+    public void setTecnicoAsignado(String tecnicoAsignado) {
+        this.tecnicoAsignado = tecnicoAsignado;
+    }
+
     public Date getFechaCreacion() {
         return fechaCreacion;
     }
@@ -84,19 +102,5 @@ public class SolicitudServicio {
         this.fechaActualizacion = fechaActualizacion;
     }
 
-    public Tecnico getTecnicoAsignado() {
-        return tecnicoAsignado;
-    }
-
-    public void setTecnicoAsignado(Tecnico tecnicoAsignado) {
-        this.tecnicoAsignado = tecnicoAsignado;
-    }
-
-    public List<Producto> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
-    }
+    // Getters y Setters
 }

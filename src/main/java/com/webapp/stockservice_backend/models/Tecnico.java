@@ -1,61 +1,40 @@
 package com.webapp.stockservice_backend.models;
 
-import jakarta.persistence.*;
-import java.util.List;
+public enum Tecnico {
+    ANA_PEREZ(1, "Ana Pérez", "Hardware"),
+    DAVID_JIMENEZ(2, "David Jiménez", "Software"),
+    JORGE_SANCHEZ(3, "Jorge Sánchez", "Hardware"),
+    LAURA_RAMIREZ(4, "Laura Ramírez", "Software"),
+    MARIA_FERNANDEZ(5, "María Fernández", "Hardware");
 
-@Entity
-public class Tecnico {
+    private final int id;
+    private final String nombre;
+    private final String tipo;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String nombre;
-    private String especialidad;
-    private boolean disponibilidad;
-
-    @OneToMany(mappedBy = "tecnicoAsignado")
-    private List<SolicitudServicio> solicitudes;
-
-    // Getters y Setters
-    public Long getId() {
-        return id;
+    Tecnico(int id, String nombre, String tipo) {
+        this.id = id;
+        this.nombre = nombre;
+        this.tipo = tipo;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public int getId() {
+        return id;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getTipo() {
+        return tipo;
     }
 
-    public String getEspecialidad() {
-        return especialidad;
+    public static Tecnico getById(int id) {
+        for (Tecnico tecnico : values()) {
+            if (tecnico.getId() == id) {
+                return tecnico;
+            }
+        }
+        return null; // or throw an exception if not found
     }
-
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
-    }
-
-    public boolean isDisponibilidad() {
-        return disponibilidad;
-    }
-
-    public void setDisponibilidad(boolean disponibilidad) {
-        this.disponibilidad = disponibilidad;
-    }
-
-    public List<SolicitudServicio> getSolicitudes() {
-        return solicitudes;
-    }
-
-    public void setSolicitudes(List<SolicitudServicio> solicitudes) {
-        this.solicitudes = solicitudes;
-    }
-
 }

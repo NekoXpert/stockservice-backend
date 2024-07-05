@@ -4,8 +4,8 @@ import jakarta.persistence.*; // Importaciones de Java Persistence API (JPA)
 
 @Entity // Indica que la clase es una entidad
 @Inheritance(strategy = InheritanceType.JOINED) // Estrategia de herencia 
-@DiscriminatorColumn(name = "product_type") //
-public abstract class Producto { //
+@DiscriminatorColumn(name = "product_type") // Columna de discriminador
+public abstract class Producto { // Clase abstracta Producto
    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Generación de ID automática 
     private Long id;

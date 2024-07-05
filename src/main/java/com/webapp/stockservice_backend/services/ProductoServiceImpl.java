@@ -1,6 +1,8 @@
 package com.webapp.stockservice_backend.services;
 
 import com.webapp.stockservice_backend.models.Producto;
+import com.webapp.stockservice_backend.models.ProductoComponentePC;
+import com.webapp.stockservice_backend.models.ProductoPeriferico;
 import com.webapp.stockservice_backend.repositories.ProductoRepository;
 import com.webapp.stockservice_backend.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,20 +14,26 @@ import java.util.Optional;
 @Service
 public class ProductoServiceImpl implements ProductoService {
 
-    @Autowired 
+    @Autowired
     private ProductoRepository productoRepository;
 
-    @Override 
+    @Override
     public Producto registrarProducto(Producto producto) throws Exception {
         try {
-            return productoRepository.save(producto);
+            if (producto instanceof ProductoComponentePC) {
+                return productoRepository.save((ProductoComponentePC) producto);
+            } else if (producto instanceof ProductoPeriferico) {
+                return productoRepository.save((ProductoPeriferico) producto);
+            } else {
+                throw new Exception("Tipo de producto no reconocido");
+            }
         } catch (Exception e) {
             throw new Exception("Error al registrar el producto", e);
         }
     }
 
     @Override
-    public Producto actualizarStock(Long id, int cantidad) throws Exception { 
+    public Producto actualizarStock(Long id, int cantidad) throws Exception {
         try {
             Optional<Producto> optionalProducto = productoRepository.findById(id);
             if (optionalProducto.isPresent()) {
@@ -41,9 +49,9 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public List<Producto> obtenerProductosObsoletos() {
+    public List<Producto> obtenerProductosConBajoStock() {
         return productoRepository.findAll().stream()
-                .filter(producto -> producto.getCantidad() < 10)
+                .filter(producto -> producto.getCantidad() < 5)
                 .toList();
     }
 
@@ -57,5 +65,10 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public List<Producto> filtrarProductosPorNombre(String nombre) {
         return productoRepository.findByNombreContaining(nombre);
+    }
+
+    @Override
+    public List<Producto> obtenerProductos() {
+        return productoRepository.findAll();
     }
 }

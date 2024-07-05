@@ -83,7 +83,7 @@ public class ReporteServiceImpl implements ReporteService {
                     table.addCell(solicitud.getClienteNombre());
                     table.addCell(solicitud.getDescripcion());
                     table.addCell(solicitud.getEstado());
-                    table.addCell(solicitud.getTecnicoAsignado() != null ? solicitud.getTecnicoAsignado().getNombre()
+                    table.addCell(solicitud.getTecnicoAsignado() != null ? solicitud.getTecnicoAsignado()
                             : "No asignado");
                     table.addCell(solicitud.getFechaCreacion().toString());
                 }

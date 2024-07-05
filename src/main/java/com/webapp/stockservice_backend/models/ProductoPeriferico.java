@@ -3,8 +3,9 @@ package com.webapp.stockservice_backend.models;
 import jakarta.persistence.*;
 
 @Entity
-@DiscriminatorValue("Electronics")
-public class ProductoElectronico extends Producto {
+@DiscriminatorValue("Periferico")
+public class ProductoPeriferico extends Producto {
+
     private String marca;
     private String modelo;
 
@@ -27,6 +28,6 @@ public class ProductoElectronico extends Producto {
 
     @Override
     public String getDescripcion() {
-        return "Producto Electrónico: " + this.getNombre() + " - " + this.marca + " " + this.modelo;
+        return "Periférico: " + this.getNombre() + " - " + this.marca + " " + this.modelo;
     }
 }
