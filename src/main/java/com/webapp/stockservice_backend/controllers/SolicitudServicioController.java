@@ -3,6 +3,8 @@ package com.webapp.stockservice_backend.controllers;
 import com.webapp.stockservice_backend.models.SolicitudServicio;
 import com.webapp.stockservice_backend.services.SolicitudServicioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,14 +17,14 @@ public class SolicitudServicioController {
     private SolicitudServicioService solicitudServicioService;
 
     @PostMapping("/registrar")
-    public SolicitudServicio registrarSolicitud(@RequestBody SolicitudServicio solicitud) throws Exception {
-        return solicitudServicioService.registrarSolicitud(solicitud);
+    public ResponseEntity<?> registrarSolicitud(@RequestBody SolicitudServicio solicitud) throws Exception {
+        return new ResponseEntity<>(solicitudServicioService.registrarSolicitud(solicitud), HttpStatus.CREATED);
     }
 
     @PutMapping("/asignar-tecnico/{solicitudId}/{tecnicoId}")
-    public SolicitudServicio asignarTecnico(@PathVariable Long solicitudId, @PathVariable int tecnicoId)
+    public ResponseEntity<?> asignarTecnico(@PathVariable Long solicitudId, @PathVariable int tecnicoId)
             throws Exception {
-        return solicitudServicioService.asignarTecnico(solicitudId, tecnicoId);
+        return new ResponseEntity<>(solicitudServicioService.asignarTecnico(solicitudId, tecnicoId), HttpStatus.OK);
     }
 
     @GetMapping
@@ -41,8 +43,8 @@ public class SolicitudServicioController {
     }
 
     @PutMapping("/actualizar-estado/{solicitudId}")
-    public SolicitudServicio actualizarEstado(@PathVariable Long solicitudId, @RequestParam String estado)
+    public ResponseEntity<?> actualizarEstado(@PathVariable Long solicitudId, @RequestParam String estado)
             throws Exception {
-        return solicitudServicioService.actualizarEstado(solicitudId, estado);
+        return new ResponseEntity<>(solicitudServicioService.actualizarEstado(solicitudId, estado), HttpStatus.OK);
     }
 }

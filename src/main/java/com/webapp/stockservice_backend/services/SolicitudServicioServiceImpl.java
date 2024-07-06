@@ -73,5 +73,3 @@ public class SolicitudServicioServiceImpl implements SolicitudServicioService {
         }
     }
 }
-
-

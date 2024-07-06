@@ -1,7 +1,5 @@
 package com.webapp.stockservice_backend.services;
 
-
-
 import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
