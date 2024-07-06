@@ -19,6 +19,7 @@ public class ProductoController {
     @Autowired
     private ProductoService productoService;
 
+    // Método para registrar un componente PC
     @PostMapping("/registrar/componente")
     public ResponseEntity<?> registrarComponente(@RequestBody ProductoComponentePC productoComponentePC) {
         try {
@@ -31,6 +32,7 @@ public class ProductoController {
         }
     }
 
+    // Método para registrar un periférico
     @PostMapping("/registrar/periferico")
     public ResponseEntity<?> registrarPeriferico(@RequestBody ProductoPeriferico productoPeriferico) {
         try {
@@ -42,27 +44,31 @@ public class ProductoController {
         }
     }
 
-
+    // Método para actualizar el stock de un producto
     @PutMapping("/actualizar-stock/{id}")
     public Producto actualizarStock(@PathVariable Long id, @RequestParam int cantidad) throws Exception {
         return productoService.actualizarStock(id, cantidad);
     }
 
+    // Método para obtener los productos con bajo stock
     @GetMapping("/alertar-bajostock")
     public List<Producto> obtenerProductosConBajoStock() {
         return productoService.obtenerProductosConBajoStock();
     }
 
+    // Método para filtrar productos por tipo
     @GetMapping("/filtrar-tipo")
     public List<Producto> filtrarProductosPorTipo(@RequestParam String tipo) {
         return productoService.filtrarProductosPorTipo(tipo);
     }
 
+    // Método para filtrar productos por nombre
     @GetMapping("/filtrar-nombre")
     public List<Producto> filtrarProductosPorNombre(@RequestParam String nombre) {
         return productoService.filtrarProductosPorNombre(nombre);
     }
 
+    // Método para obtener todos los productos
     @GetMapping
     public List<Producto> obtenerProductos() {
         return productoService.obtenerProductos();
